@@ -1,0 +1,95 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+.container {
+    max-width: 400px;
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+h1{
+    text-align: center;
+    color: #333;
+}
+a{
+    text-decoration:none;
+    color: black;
+}
+input[type="text"]{
+    width: 100%;
+    padding: 10px 10px;
+    margin: 5px 0;
+    border-radius: 4px;
+    align-items:center;
+}
+input[type="email"]{
+    width: 100%;
+    padding: 10px 10px;
+    margin: 5px 0;
+    border-radius: 4px;
+    align-items:center;
+}
+input[type="submit"] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    align-items:center;
+}
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+.action{
+    display: flex;
+    gap: 10px;
+}
+#back{
+    width: 100%;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    background-color: black;
+}
+#back:hover{
+    background-color:#333;
+}
+ul{
+    margin-top:30px;
+    margin-bottom: 0px;
+}
+#logout  {
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+    padding: 10px 20px;
+    background-color: #1d5d5f;
+    color: white;
+    border-radius: 5px;
+    width: 40%;
+    margin: 0 auto;
+}
+#logout:hover {
+    background-color: #333;
+}
+#flogout{
+    display: block;
+    background-color: black;
+    width: 50%;
+    justify-self: center;
+}
+#flogout:hover{
+    background-color: #333;
+}
