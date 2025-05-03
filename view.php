@@ -65,9 +65,10 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'faculty') {
 }
 
 $sql = "SELECT * FROM students";
+$i=1;
 if ($result = mysqli_query($link, $sql)) {
     if (mysqli_num_rows($result) > 0) {
-        echo "<h1>Student Records</h1>";
+        echo "<h1>Students Record</h1>";
         echo '<table>';
         echo "<thead>";
         echo "<tr>";
@@ -86,7 +87,7 @@ if ($result = mysqli_query($link, $sql)) {
         echo "<tbody>";
         while ($row = mysqli_fetch_assoc($result)) {
             echo "<tr>";
-            echo "<td>" . $row['id'] . "</td>";
+            echo "<td>" . (isset($row['id']) ? htmlspecialchars($row['id']) : $i++) . "</td>";
             echo "<th></th>";
             echo "<th></th>";
             echo "<td>" . $row['student_id'] . "</td>";

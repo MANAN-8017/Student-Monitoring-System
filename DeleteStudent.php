@@ -16,15 +16,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 mysqli_stmt_bind_param($delete_stmt, "s", $student_id);
 
                 if (mysqli_stmt_execute($delete_stmt)) {
-                    echo "<h3 style='color: green;'>Student deleted successfully!</h3>";
+                    echo "<h3 style='color: green;'>Student's Data Deleted Successfully!</h3>";
                 } else {
-                    echo "<h3 style='color: red;'>Error: Could not delete student. " . mysqli_stmt_error($delete_stmt) . "</h3>";
+                    echo "<h3 style='color: red;'>Error: Could not delete Student's Data. " . mysqli_stmt_error($delete_stmt) . "</h3>";
                 }
 
                 mysqli_stmt_close($delete_stmt);
             }
         } else {
-            echo "<h3 style='color: red;'>Error: No student found with the provided student ID.</h3>";
+            echo "<h3 style='color: red;'>Error: No Student found with the provided Student ID.</h3>";
         }
 
         mysqli_stmt_close($stmt);
@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <div class="container">
 
-    <h1>Delete Student</h1>
+    <h1>Delete Student's Data</h1>
 
     <form method="post">
 

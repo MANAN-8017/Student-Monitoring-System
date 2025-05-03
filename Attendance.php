@@ -5,7 +5,7 @@ if ($_SESSION['role'] !== 'student') {
     header("Location: login.php");
     exit();
 }
-$student_id = $_SESSION['id'];
+$student_id = $_SESSION['student_id'];
 ?>
 
 <link rel="stylesheet" href="student.css">
@@ -27,7 +27,7 @@ $student_id = $_SESSION['id'];
       <td>Mathematics-II</td>
       <td>
         <?php
-          $sql = "SELECT * FROM attendance WHERE subject = 'MATHS'";
+          $sql = "SELECT * FROM attendance WHERE ( subject = 'MATHS' && student_id = '$student_id' ) ";
           $result = mysqli_query($link, $sql);
           while ($row = mysqli_fetch_assoc($result)) {
             echo $row['Total'] ;
@@ -36,7 +36,7 @@ $student_id = $_SESSION['id'];
       </td>
       <td>
         <?php
-          $sql = "SELECT * FROM attendance WHERE subject = 'MATHS'";
+          $sql = "SELECT * FROM attendance WHERE subject = 'MATHS' && student_id = '$student_id' ";
           $result = mysqli_query($link, $sql);
           while ($row = mysqli_fetch_assoc($result)) {
             echo $row['Present'] ;
@@ -45,7 +45,7 @@ $student_id = $_SESSION['id'];
       </td>
       <td>
         <?php
-          $sql = "SELECT * FROM attendance WHERE subject = 'MATHS'";
+          $sql = "SELECT * FROM attendance WHERE subject = 'MATHS' && student_id = '$student_id' ";
           $result = mysqli_query($link, $sql);
           while ($row = mysqli_fetch_assoc($result)) {
             $percentage = round($row['Present'] / $row['Total'] * 100, 2);
@@ -60,7 +60,7 @@ $student_id = $_SESSION['id'];
       <td>Semiconductor Physics</td>
       <td>
         <?php
-          $sql = "SELECT * FROM attendance WHERE subject = 'SCP'";
+          $sql = "SELECT * FROM attendance WHERE subject = 'SCP' && student_id = '$student_id' ";
           $result = mysqli_query($link, $sql);
           while ($row = mysqli_fetch_assoc($result)) {
             echo $row['Total'] ;
@@ -69,7 +69,7 @@ $student_id = $_SESSION['id'];
       </td>
       <td>
         <?php
-          $sql = "SELECT * FROM attendance WHERE subject = 'SCP'";
+          $sql = "SELECT * FROM attendance WHERE subject = 'SCP' && student_id = '$student_id' ";
           $result = mysqli_query($link, $sql);
           while ($row = mysqli_fetch_assoc($result)) {
             echo $row['Present'] ;
@@ -78,7 +78,7 @@ $student_id = $_SESSION['id'];
       </td>
       <td>
         <?php
-          $sql = "SELECT * FROM attendance WHERE subject = 'SCP'";
+          $sql = "SELECT * FROM attendance WHERE subject = 'SCP' && student_id = '$student_id' ";
           $result = mysqli_query($link, $sql);
           while ($row = mysqli_fetch_assoc($result)) {
             $percentage = round($row['Present'] / $row['Total'] * 100, 2);
@@ -94,8 +94,8 @@ $student_id = $_SESSION['id'];
     <tr>
       <td>PPS-II</td>
       <td>
-        <?php
-          $sql = "SELECT * FROM attendance WHERE subject = 'PPS'";
+        <?php 
+          $sql = "SELECT * FROM attendance WHERE subject = 'PPS' && student_id = '$student_id' ";
           $result = mysqli_query($link, $sql);
           while ($row = mysqli_fetch_assoc($result)) {
             echo $row['Total'] ;
@@ -104,7 +104,7 @@ $student_id = $_SESSION['id'];
       </td>
       <td>
         <?php
-          $sql = "SELECT * FROM attendance WHERE subject = 'PPS'";
+          $sql = "SELECT * FROM attendance WHERE subject = 'PPS' && student_id = '$student_id' ";
           $result = mysqli_query($link, $sql);
           while ($row = mysqli_fetch_assoc($result)) {
             echo $row['Present'] ;
@@ -113,7 +113,7 @@ $student_id = $_SESSION['id'];
       </td>
       <td>
         <?php
-          $sql = "SELECT * FROM attendance WHERE subject = 'PPS'";
+          $sql = "SELECT * FROM attendance WHERE subject = 'PPS' && student_id = '$student_id' ";
           $result = mysqli_query($link, $sql);
           while ($row = mysqli_fetch_assoc($result)) {
             $percentage = round($row['Present'] / $row['Total'] * 100, 2);
@@ -128,7 +128,7 @@ $student_id = $_SESSION['id'];
       <td>Hardware Workshop</td>
       <td>
         <?php
-          $sql = "SELECT * FROM attendance WHERE subject = 'HW'";
+          $sql = "SELECT * FROM attendance WHERE subject = 'HW' && student_id = '$student_id' ";
           $result = mysqli_query($link, $sql);
           while ($row = mysqli_fetch_assoc($result)) {
             echo $row['Total'] ;
@@ -137,7 +137,7 @@ $student_id = $_SESSION['id'];
       </td>
       <td>
         <?php
-          $sql = "SELECT * FROM attendance WHERE subject = 'HW'";
+          $sql = "SELECT * FROM attendance WHERE subject = 'HW' && student_id = '$student_id' ";
           $result = mysqli_query($link, $sql);
           while ($row = mysqli_fetch_assoc($result)) {
             echo $row['Present'] ;
@@ -146,7 +146,7 @@ $student_id = $_SESSION['id'];
       </td>
       <td>
         <?php
-          $sql = "SELECT * FROM attendance WHERE subject = 'HW'";
+          $sql = "SELECT * FROM attendance WHERE subject = 'HW' && student_id = '$student_id' ";
           $result = mysqli_query($link, $sql);
           while ($row = mysqli_fetch_assoc($result)) {
             $percentage = round($row['Present'] / $row['Total'] * 100, 2);
@@ -161,7 +161,7 @@ $student_id = $_SESSION['id'];
       <td>English</td>
       <td>
         <?php
-          $sql = "SELECT * FROM attendance WHERE subject = 'ENGLISH'";
+          $sql = "SELECT * FROM attendance WHERE subject = 'ENGLISH' && student_id = '$student_id' ";
           $result = mysqli_query($link, $sql);
           while ($row = mysqli_fetch_assoc($result)) {
             echo $row['Total'] ;
@@ -170,7 +170,7 @@ $student_id = $_SESSION['id'];
       </td>
       <td>
         <?php
-          $sql = "SELECT * FROM attendance WHERE subject = 'ENGLISH'";
+          $sql = "SELECT * FROM attendance WHERE subject = 'ENGLISH' && student_id = '$student_id' ";
           $result = mysqli_query($link, $sql);
           while ($row = mysqli_fetch_assoc($result)) {
             echo $row['Present'] ;
@@ -179,7 +179,7 @@ $student_id = $_SESSION['id'];
       </td>
       <td>
         <?php
-          $sql = "SELECT * FROM attendance WHERE subject = 'ENGLISH'";
+          $sql = "SELECT * FROM attendance WHERE subject = 'ENGLISH' && student_id = '$student_id' ";
           $result = mysqli_query($link, $sql);
           while ($row = mysqli_fetch_assoc($result)) {
             $percentage = round($row['Present'] / $row['Total'] * 100, 2);
@@ -194,7 +194,7 @@ $student_id = $_SESSION['id'];
       <td>Environmental-Studies</td>
       <td>
         <?php
-          $sql = "SELECT * FROM attendance WHERE subject = 'EVS'";
+          $sql = "SELECT * FROM attendance WHERE subject = 'EVS' && student_id = '$student_id' ";
           $result = mysqli_query($link, $sql);
           while ($row = mysqli_fetch_assoc($result)) {
             echo $row['Total'] ;
@@ -203,7 +203,7 @@ $student_id = $_SESSION['id'];
       </td>
       <td>
         <?php
-          $sql = "SELECT * FROM attendance WHERE subject = 'EVS'";
+          $sql = "SELECT * FROM attendance WHERE subject = 'EVS' && student_id = '$student_id' ";
           $result = mysqli_query($link, $sql);
           while ($row = mysqli_fetch_assoc($result)) {
             echo $row['Present'] ;
@@ -212,7 +212,7 @@ $student_id = $_SESSION['id'];
       </td>
       <td>
         <?php
-          $sql = "SELECT * FROM attendance WHERE subject = 'EVS'";
+          $sql = "SELECT * FROM attendance WHERE subject = 'EVS' && student_id = '$student_id' ";
           $result = mysqli_query($link, $sql);
           while ($row = mysqli_fetch_assoc($result)) {
             $percentage = round($row['Present'] / $row['Total'] * 100, 2);
@@ -229,7 +229,7 @@ $student_id = $_SESSION['id'];
     <?php
       $arr_p=0;
       $arr_t=0;
-      $sql = "SELECT * FROM attendance";
+      $sql = "SELECT * FROM attendance WHERE student_id = '$student_id' ";
       $result = mysqli_query($link, $sql);
       while ($row = mysqli_fetch_assoc($result)) {
         $arr_p += $row['Present'];

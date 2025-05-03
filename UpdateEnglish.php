@@ -8,47 +8,53 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $Present = $_POST["Present"];
 
     if ($Present > $Total) {
-        echo "<h3 style='color: red;'>Error: Present days cannot be more than Total days.</h3>";
-        exit();
-    }
+        echo "<h3 style='color: red;'>Error: Present days cannot exceed the total number of classes.</h3>";
+    } else {
+        $lookup_sql = "SELECT student_id FROM students WHERE student_id = ?";
+        if ($lookup_stmt = mysqli_prepare($link, $lookup_sql)) {
+            mysqli_stmt_bind_param($lookup_stmt, "s", $student_string_id);
+            mysqli_stmt_execute($lookup_stmt);
+            mysqli_stmt_store_result($lookup_stmt);
 
-    $lookup_sql = "SELECT id FROM students WHERE student_id = ?";
-    if ($lookup_stmt = mysqli_prepare($link, $lookup_sql)) {
-        mysqli_stmt_bind_param($lookup_stmt, "s", $student_string_id);
-        mysqli_stmt_execute($lookup_stmt);
-        mysqli_stmt_bind_result($lookup_stmt, $student_id_int);
+            if (mysqli_stmt_num_rows($lookup_stmt) > 0) {
+                mysqli_stmt_close($lookup_stmt);
 
-        if (mysqli_stmt_fetch($lookup_stmt)) {
-            mysqli_stmt_close($lookup_stmt);
+                $check_sql = "SELECT id, Total, Present FROM attendance WHERE student_id = ? AND subject = ?";
+                if ($check_stmt = mysqli_prepare($link, $check_sql)) {
+                    mysqli_stmt_bind_param($check_stmt, "ss", $student_string_id, $subject);
+                    mysqli_stmt_execute($check_stmt);
+                    mysqli_stmt_store_result($check_stmt);
 
-            $check_sql = "SELECT * FROM attendance WHERE student_id = ? AND subject = ?";
-            if ($check_stmt = mysqli_prepare($link, $check_sql)) {
-                mysqli_stmt_bind_param($check_stmt, "is", $student_id_int, $subject);
-                mysqli_stmt_execute($check_stmt);
-                mysqli_stmt_store_result($check_stmt);
+                    if (mysqli_stmt_num_rows($check_stmt) > 0) {
+                        mysqli_stmt_bind_result($check_stmt, $attendance_id, $current_total, $current_present);
 
-                if (mysqli_stmt_num_rows($check_stmt) > 0) {
-                    $update_sql = "UPDATE attendance SET Total = ?, Present = ? WHERE student_id = ? AND subject = ?";
-                    if ($update_stmt = mysqli_prepare($link, $update_sql)) {
-                        mysqli_stmt_bind_param($update_stmt, "iiis", $Total, $Present, $student_id_int, $subject);
+                        while (mysqli_stmt_fetch($check_stmt)) {
+                            if ($current_total == $Total && $current_present == $Present) {
+                                echo "<h3 style='color: blue;'>Warning: Your attendance is already the same as the latest record.</h3>";
+                            } else {
+                                $update_sql = "UPDATE attendance SET Total = ?, Present = ? WHERE id = ?";
+                                if ($update_stmt = mysqli_prepare($link, $update_sql)) {
+                                    mysqli_stmt_bind_param($update_stmt, "iii", $Total, $Present, $attendance_id);
 
-                        if (mysqli_stmt_execute($update_stmt)) {
-                            echo "<h3 style='color: green;'>Student attendance updated successfully!</h3>";
-                        } else {
-                            echo "<h3 style='color: red;'>Error: Could not update attendance. " . mysqli_stmt_error($update_stmt) . "</h3>";
+                                    if (mysqli_stmt_execute($update_stmt)) {
+                                        echo "<h3 style='color: green;'>Student attendance updated successfully!</h3>";
+                                    } else {
+                                        echo "<h3 style='color: red;'>Error: Could not update attendance. " . mysqli_stmt_error($update_stmt) . "</h3>";
+                                    }
+
+                                    mysqli_stmt_close($update_stmt);
+                                }
+                            }
                         }
-
-                        mysqli_stmt_close($update_stmt);
+                    } else {
+                        echo "<h3 style='color: red;'>No attendance record found for this student in the specified subject. Please insert it first.</h3>";
                     }
-                } else {
-                    echo "<h3 style='color: red;'>No attendance record found for this student. Please insert it first.</h3>";
+
+                    mysqli_stmt_close($check_stmt);
                 }
-
-                mysqli_stmt_close($check_stmt);
+            } else {
+                echo "<h3 style='color: red;'>Student ID not found. Please enter a valid student ID.</h3>";
             }
-
-        } else {
-            echo "<h3 style='color: red;'>Student ID not found. Please enter a valid student ID.</h3>";
         }
     }
 
@@ -60,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <div class="container">
 
-    <h1>Update English's attendance</h1>
+    <h1>Update English's Attendance</h1>
     
     <form method="post">
         
